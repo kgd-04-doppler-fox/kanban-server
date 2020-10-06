@@ -6,12 +6,16 @@ class UserController {
     static async register (req, res, next){
         try {
             const {name, email, password} = req.body
-            const user = await new User.create({
+            const user = await User.create({
                 name,
                 email,
                 password
             })
-            res.status(201).json({user})
+            res.status(201).json({
+                id: user.id,
+                name: user.name,
+                email: user.email
+            })
         } catch (error) {
             next (error)
         }
@@ -20,7 +24,7 @@ class UserController {
     static async login (req, res, next){
         try {
             const {email, password} = req.body
-            const user = await new User.findOne({
+            const user = await User.findOne({
                 where : {
                     email
                 }
@@ -36,8 +40,10 @@ class UserController {
                 const access_token = jwt.sign({
                     id: user.id,
                     email: user.email
+                }, 'secret')
+                res.status(200).json({
+                    access_token
                 })
-                res.status(200).json(access_token)
             }
             else {
                 throw {
@@ -45,7 +51,7 @@ class UserController {
                 }
             }
         } catch (error) {
-            nxet (error)
+            next (error)
         }
     }
 
