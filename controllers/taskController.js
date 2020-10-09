@@ -3,12 +3,9 @@ const {Task} = require('../models')
 class TaskController {
 
     static showAllTask (req, res) {
-        Task.findAll({
-            where : {
-                UserId : req.decodedUser.id
-            }
-        })
+        Task.findAll()
         .then(data => {
+            // console.log(data);
             res.status(200).json({
                 tasks : data
             })
@@ -39,8 +36,52 @@ class TaskController {
             })
         })
     }
+    static updateTask (req,res) {
+        const patchTasks = {
+            title: req.body.title,
+            category: req.body.category
+        }
+        Task.update(patchTasks, {
+            where: {
+                id: +req.params.id
+            }
+        })
+        .then(data => {
+            res.status(200).json({
+                name: 'Task Category Success to Update'
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error : err
+            })
+        })
+    }
 
-    
+    static deleteTask (req, res) {
+        console.log(req.params.id);
+        Task.destroy({
+            where: {
+                id: +req.params.id
+            }
+        })
+        .then(data => {
+            if(data === 1){
+                res.status(200).json({
+                    message: 'Task Deleted'
+                })
+            } else {
+                res.status(404).json({
+                    message: 'Invalid Task'
+                })
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+                error : err
+            })
+        })
+    }
 }
 
 module.exports = TaskController
