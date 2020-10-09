@@ -20,8 +20,8 @@ module.exports = {
       status: {
         type: Sequelize.INTEGER
       },
-      organization: {
-        type: Sequelize.STRING
+      due_date:{
+        type: Sequelize.DATE
       },
       UserId: {
         type: Sequelize.INTEGER

@@ -3,6 +3,7 @@ const {Task} = require(`../models/index`)
 class TaskController {
     
     static async allTask(req, res, next) {
+        console.log('masuk alltask')
         try {
             const task = await Task.findAll({
                 where: { UserId: +req.decodedUser.id },
@@ -38,14 +39,15 @@ class TaskController {
 
     }
 
-    static async getById(req, res, next) {
-        const { id } = req.params
+    static async getByStatus(req, res, next) {
+       const { status } = req.params
+         
         try {
             const task = await Task.findOne(
                 {
                     where: {
                         UserId: +req.decodedUser.id,
-                        id: id
+                        status: status
                     }
                 }
             )
