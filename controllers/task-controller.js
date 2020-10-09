@@ -2,11 +2,7 @@ const { Task } = require('../models')
 
 class TaskController {
   static showAll(req, res, next) {
-    Task.findAll({
-      where: {
-        UserId: req.decodedUser.id
-      }
-    })
+    Task.findAll()
       .then(data => {
         res.status(200).json(data)
       })
@@ -51,25 +47,16 @@ class TaskController {
   }
 
   static editTask(req, res, next) {
-    const { title, description, category } = req.body
+    const { category } = req.body
     Task.update({
-      title,
-      description,
       category
     }, {
       where: {
         id: req.params.id
-      },
-      returning: true
+      }
     })
       .then(data => {
-        if (data[0] === 0) {
-          throw {
-            name: "not found"
-          }
-        } else {
-          res.status(201).json(data[1][0])
-        }
+        res.status(201).json(data)
       })
       .catch(err => {
         next(err)
