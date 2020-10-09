@@ -12,10 +12,10 @@ class TaskController {
 
     static async createTask (req, res, next){
         try {
-            const {title} = req.body
+            const {title, category} = req.body
             const task = await Task.create ({
                 title,
-                category : `backlog`,
+                category : 'backlog',
                 UserId: req.decodedUser.id
             })
             res.status(201).json({task : {
@@ -45,15 +45,16 @@ class TaskController {
     }
 
     static async changeStatus (req, res, next){
+        console.log(`disini`)
         try {
             const id = req.params.id
             const task = await Task.update({
                 category : req.body.category
-
             }, {
                 where : {id},
                 returning : true
             })
+            console.log(task)
             res.status(201).json(task[1][0])
         } catch (error) {
             next(error)
