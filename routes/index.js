@@ -1,0 +1,15 @@
+const router = require('express').Router()
+const UserController = require('../controllers/user-controller')
+const TaskController = require('../controllers/task-controller')
+const authentication = require('../middlewares/authentication')
+const authorization = require('../middlewares/authorization')
+
+router.post('/login', UserController.login)
+router.post('/register', UserController.register)
+router.get('/tasks',TaskController.showAll)
+router.post('/tasks',authentication, TaskController.postTask)
+router.get('/tasks/:id', authentication, authorization, TaskController.findById)
+router.patch('/tasks/:id', authentication, authorization, TaskController.editTask)
+router.delete('/tasks/:id', authentication, authorization, TaskController.deleteById)
+router.post('/googlesignin',UserController.googleSignIn)
+module.exports = router
