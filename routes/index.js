@@ -6,6 +6,7 @@ const authorization = require ('../middlewawre/authorization.js');
 
 router.post ('/register',UserController.register);
 router.post ('/login',UserController.login);
+router.post('/googleSignIn',UserController.googleSignIn)
 router.use (authentication)
 router.get ('/tasks',TaskController.findAll);
 router.post ('/tasks',TaskController.createTask);

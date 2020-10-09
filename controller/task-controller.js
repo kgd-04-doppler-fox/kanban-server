@@ -20,7 +20,7 @@ class TaskController {
         const { title,category } = req.body
         Task.create ({
             title,
-            category,
+            category: 'backlog',
             userId : req.decodedUser.id
         })
         .then (task => {
