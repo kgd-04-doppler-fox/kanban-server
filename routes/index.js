@@ -10,7 +10,7 @@ router.post     ('/googleSignIn', UserController.googleSignIn)
 router.get      ('/tasks', authentication, TaskController.getAllTask)
 router.post     ('/tasks', authentication, TaskController.createTask)
 router.get      ('/tasks/:id', authentication, authorization, TaskController.getTaskById)
-router.put      ('/tasks/:id', authentication, authorization, TaskController.changeStatus)
+router.patch    ('/tasks/:id', authentication, authorization, TaskController.changeStatus)
 router.delete   ('/tasks/:id', authentication, authorization, TaskController.deleteTask)
 
 

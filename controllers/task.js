@@ -67,7 +67,7 @@ class TaskController {
             const task = await Task.destroy({
                 where : {id}
             })
-            res.status(200).json(task)
+            res.status(200).json({msg: `success delete`})
         } catch (error) {
             next (error)
         }
