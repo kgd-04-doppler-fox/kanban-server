@@ -12,6 +12,9 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+app.get('/', (req, res) => {
+  res.status(200).json('hello world')
+})
 app.use('/', user)
 app.use('/tasks', tasks)
 app.use(errorHandler)
