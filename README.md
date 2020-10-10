@@ -395,7 +395,8 @@ API documentation for the User.
   * **Code:** 200 <br />
     **Content:** <br />
     `{
-        "access_token": "dummyaccesstoken"
+        "access_token": "dummyaccesstoken",
+        "email": "loggeduser@mail.com"
     }`
  
 * **Error Response:**

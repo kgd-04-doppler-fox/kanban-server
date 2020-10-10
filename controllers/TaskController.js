@@ -4,9 +4,8 @@ class TaskController {
   static getTasksByUserId(req, res, next) {
     Task.findAll({ where: { UserId: req.decodedUser.id } })
       .then(task => {
-        res.status(200).json({
-          task
-        })
+        task.push({ email: req.decodedUser.email })
+        res.status(200).json(task)
       })
       .catch(err => {
         next(err)
@@ -23,7 +22,7 @@ class TaskController {
             title: task.title,
             description: task.description,
             category: task.category,
-            createdDate: task.createdAt
+            createdAt: task.createdAt
           }
         })
       })
@@ -66,13 +65,34 @@ class TaskController {
 
   static async deleteTasksByUserId(req, res, next) {
     try {
-      const task = await Task.destroy({ where: { id: +req.params.id }, returning: true })
+      const task = await Task.destroy({
+        where: { id: +req.params.id },
+        returning: true
+      })
       if (task[0] === 0) {
         throw {
           msg: 'task not found'
         }
       } else {
         res.status(200).json({ msg: 'Task has been deleted.' })
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async changeTaskCategory(req, res, next) {
+    try {
+      const { category } = req.body
+      const task = await Task.update({ category },
+        { where: { id: +req.params.id }, returning: true })
+      if (task[0] === 0) {
+        throw {
+          msg: 'task not found'
+        }
+      } else {
+        console.log(task)
+        // res.status(201).json({ })
       }
     } catch (error) {
       next(error)

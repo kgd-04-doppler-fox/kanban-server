@@ -1,4 +1,5 @@
 function errorHandler(err, req, res, next) {
+  console.log(err)
   if (err.msg === 'unauthorized') {
     res.status(401).json(err)
   } else if (err.msg === 'task not found') {

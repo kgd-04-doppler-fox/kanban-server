@@ -30,7 +30,7 @@ class UserController {
           id: user.id,
           email: user.email
         }, process.env.JWT_SECRET)
-        res.status(200).json({ access_token })
+        res.status(200).json({ access_token, email })
       } else {
         throw {
           msg: 'Wrong email or password'
@@ -44,7 +44,7 @@ class UserController {
   static googleSignIn(req, res, next) {
     let email
     client.verifyIdToken({
-      idToken: req.body.tokenGoogle,
+      idToken: req.body.access_token,
       audience: process.env.GOOGLE_CLIENT_ID,
     })
       .then(ticket => {
