@@ -2,7 +2,7 @@ const { Task } = require('../models')
 
 class TaskController {
   static getTasksByUserId(req, res, next) {
-    Task.findAll({ where: { UserId: req.decodedUser.id } })
+    Task.findAll({ where: { organization: req.decodedUser.organization } })
       .then(task => {
         task.push({ email: req.decodedUser.email })
         res.status(200).json(task)
