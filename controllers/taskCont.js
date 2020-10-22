@@ -3,10 +3,8 @@ const {Task} = require(`../models/index`)
 class TaskController {
     
     static async allTask(req, res, next) {
-        console.log('masuk alltask')
         try {
             const task = await Task.findAll({
-                where: { UserId: +req.decodedUser.id },
                 order: [[`id`, `ASC`]]
             })
             res.status(200).json({ task })
@@ -19,7 +17,6 @@ class TaskController {
 
     static async addTask(req, res, next) {
         const { title, description, category, status, due_date} = req.body
-
         try {
             const task = await Task.create(
                 {
