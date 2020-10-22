@@ -1,10 +1,10 @@
-const { Task } = require ('../models');
+const { Task,User } = require ('../models');
 
 class TaskController {
     static findAll (req,res,next) {
         Task.findAll ({
             where : {
-                userId : req.decodedUser.id
+                organization : req.decodedUser.organization,
             },
             order: ['id']
         })
@@ -12,6 +12,7 @@ class TaskController {
             res.status(200).json(task)
         })
         .catch (err => {
+            console.log(err)
             next(err)
         })
     }
@@ -21,7 +22,8 @@ class TaskController {
         Task.create ({
             title,
             category: 'backlog',
-            userId : req.decodedUser.id
+            userId : req.decodedUser.id,
+            organization : req.decodedUser.organization,
         })
         .then (task => {
             res.status(201).json(task)
