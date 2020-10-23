@@ -16,6 +16,19 @@ class TaskController {
 
     }
 
+    static async oneTask(req, res, next) {
+        try {
+            const task = await Task.findOne({
+                where: {id: req.params.id}
+            })
+            res.status(200).json({ task })
+        }
+        catch (err) {
+            next(err)
+        }
+
+    }
+
     static async addTask(req, res, next) {
         const { title, description, category, status, due_date} = req.body
         try {

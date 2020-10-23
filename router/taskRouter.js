@@ -8,6 +8,7 @@ router.get(`/`, TaskController.allTask)
 router.post(`/`, TaskController.addTask)
 
 router.use(`/:id`,authorization)
+router.get(`/:id`, TaskController.oneTask)
 router.get(`/:id/:status`, TaskController.getByStatus)
 router.patch(`/:id`,TaskController.patchTasks)
 router.put(`/:id`, TaskController.putTasks)
