@@ -1,8 +1,10 @@
-const { Task } = require('../models')
+const { Task,User } = require('../models')
 
 class TaskController {
   static showAll(req, res, next) {
-    Task.findAll()
+    Task.findAll({
+      include: [User]
+    })
       .then(data => {
         res.status(200).json(data)
       })
@@ -12,10 +14,9 @@ class TaskController {
   }
 
   static postTask(req, res, next) {
-    const { title, description, category } = req.body
+    const { title, category } = req.body
     Task.create({
       title,
-      description,
       category,
       UserId: req.decodedUser.id
     })

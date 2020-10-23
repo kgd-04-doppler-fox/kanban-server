@@ -48,6 +48,16 @@ module.exports = (sequelize, DataTypes) => {
     organization: {
       type: DataTypes.STRING,
       defaultValue: 'Hacktiv8'
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull:false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'cannot be empty'
+        }
+      }
     }
   }, {
     sequelize,

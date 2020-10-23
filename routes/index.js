@@ -6,10 +6,11 @@ const authorization = require('../middlewares/authorization')
 
 router.post('/login', UserController.login)
 router.post('/register', UserController.register)
-router.get('/tasks',TaskController.showAll)
+router.post('/googleSignIn', UserController.googleSignIn)
+router.get('/tasks', authentication, TaskController.showAll)
 router.post('/tasks',authentication, TaskController.postTask)
 router.get('/tasks/:id', authentication, authorization, TaskController.findById)
 router.patch('/tasks/:id', authentication, authorization, TaskController.editTask)
 router.delete('/tasks/:id', authentication, authorization, TaskController.deleteById)
-router.post('/googlesignin',UserController.googleSignIn)
+
 module.exports = router
