@@ -17,11 +17,7 @@ class TaskController {
     }
 
     static showAllTask (req, res) {
-        Task.findAll({
-            where: {
-                UserId: req.decodedUser.id
-            }
-        })
+        Task.findAll({})
         .then(task => {
             res.status(200).json(task)
         })
@@ -80,7 +76,7 @@ class TaskController {
             if (!task) {
                 res.status(404).json({ error : `Error 404 Data Not Found` })
             }
-            res.status(task[1][0])
+            res.status(200).json({ "message" : `Task Successfully Updated` })
         })
         .catch(err => {
             res.send(err)
