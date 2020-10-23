@@ -1,7 +1,9 @@
 if (process.env.NODE_ENV == "development"){
     require(`dotenv`).config()
+}else{
+
+    require(`dotenv`).config()
 }
-// require(`dotenv`).config()
 console.log(process.env.PORT)
 
 const express = require(`express`)
